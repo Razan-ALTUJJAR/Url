@@ -1,11 +1,11 @@
-theme: "hugo"
+theme: "hugo-lithium"
 # Configuration of Hugo
 # Guide: https://docs.hugoblox.com/tutorial/
 # Hugo Documentation: https://gohugo.io/getting-started/configuration/#all-configuration-settings
 # This file is formatted using YAML syntax - learn more at https://learnxinyminutes.com/docs/yaml/
 
 title: Academic # Website name
-baseURL: 'https://razanaltujjar.netlify.app' # Website URL
+baseURL: 'https://razana-ltujjar.netlify.app' # Website URL
 
 ############################
 ## LANGUAGE
