@@ -72,9 +72,9 @@ superuser: true
 title: ALTUJJAR Razan  #r
 color: green
 ---
-
-<style>
-  .bottom-section {
+  
+  <style>
+  .profile-section {
     display: flex;
     align-items: center;
     justify-content: flex-start; /* Alignement à gauche pour toute la section */
@@ -97,31 +97,31 @@ color: green
 100% {background-position: 0% 0%;}
 }
 
-.bottom-details {
+.profile-details {
   display: flex;
   align-items: center;
   justify-content: flex-start; /* Align content to the left */
     width: auto; /* Adjust width to fit content */
     margin-left: 2800px; /* Margin-left to move text more to the left */ decale phr
-    color: blue
+  color: blue
 }
 
-.bottom-details h1 {
+.profile-details h1 {
   font-size: 16px; /* Adjusted font size */
     margin: 0; /* Remove default margin */  # taille de la bar
     display: flex;
   align-items: center; /* Align text vertically */
-  color: blue
+    color: blue
 }
 
 .links {
   display: none; /* Hide the links section */
 }
 </style>
-
-
-
-<style>
+  
+  
+  
+  <style>
   .bottom-section {
     display: flex;
     align-items: center;
@@ -151,7 +151,7 @@ color: green
   justify-content: flex-start; /* Align content to the left */
     width: auto; /* Adjust width to fit content */
     margin-left: 2800px; /* Margin-left to move text more to the left */ decale phr
-    color: blue
+  color: blue
 }
 
 .bottom-details h1 {
@@ -159,17 +159,17 @@ color: green
     margin: 0; /* Remove default margin */  # taille de la bar
     display: flex;
   align-items: center; /* Align text vertically */
-  color: blue
+    color: blue
 }
 
 .links {
   display: none; /* Hide the links section */
 }
 </style>
-
-
-
-
+  
+  
+  
+  
   
   <div class="profile-section">
   <div class="profile-details">
@@ -182,4 +182,3 @@ color: green
   <h1>👋 Thanks for your visit</h1>
     </div>
 </div>
-
