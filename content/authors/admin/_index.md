@@ -72,10 +72,8 @@ superuser: true
 title: ALTUJJAR Razan  #r
 color: green
 ---
-  
-  <!-- En-tête HTML pour le style -->
-  <!-- En-tête HTML pour le style -->
-  <style>
+
+<style>
   .profile-section {
     display: flex;
     align-items: center;
@@ -88,9 +86,9 @@ color: green
                                     border-radius: 8 15 80px 98px; /* Rounded corners */
                                     width: 100%;
                                   position: fixed;
-                                  top: 70px; /* Position below your RMarkdown taskbar */
+                                  top: 30 px; /* Position below your RMarkdown taskbar */
                                     left: 0;
-                                  z-index: 9999; /* Ensure it stays above other content */
+                                  z-index: 99999; /* Ensure it stays above other content */
   }
 
 @keyframes gradient {
@@ -151,7 +149,7 @@ color: green
   justify-content: flex-start; /* Align content to the left */
     width: auto; /* Adjust width to fit content */
     margin-left: 2800px; /* Margin-left to move text more to the left */ decale phr
-    color: pink
+    color: blue
 }
 
 .bottom-details h1 {
@@ -159,7 +157,7 @@ color: green
     margin: 0; /* Remove default margin */  # taille de la bar
     display: flex;
   align-items: center; /* Align text vertically */
-  color: pink
+  color: blue
 }
 
 .links {
