@@ -74,7 +74,7 @@ color: green
 ---
 
 <style>
-  .profile-section {
+  .bottom-section {
     display: flex;
     align-items: center;
     justify-content: flex-start; /* Alignement à gauche pour toute la section */
@@ -86,9 +86,9 @@ color: green
                                     border-radius: 8 15 80px 98px; /* Rounded corners */
                                     width: 100%;
                                   position: fixed;
-                                  top: 30 px; /* Position below your RMarkdown taskbar */
+                                  top: 190px; /* Position below your RMarkdown taskbar */
                                     left: 0;
-                                  z-index: 99999; /* Ensure it stays above other content */
+                                  z-index: 9999; /* Ensure it stays above other content */
   }
 
 @keyframes gradient {
@@ -97,19 +97,21 @@ color: green
 100% {background-position: 0% 0%;}
 }
 
-.profile-details {
+.bottom-details {
   display: flex;
   align-items: center;
   justify-content: flex-start; /* Align content to the left */
     width: auto; /* Adjust width to fit content */
-    margin-left: 2500px; /* Margin-left to move text more to the left */
+    margin-left: 2800px; /* Margin-left to move text more to the left */ decale phr
+    color: blue
 }
 
-.profile-details h1 {
+.bottom-details h1 {
   font-size: 16px; /* Adjusted font size */
-    margin: 0; /* Remove default margin */
+    margin: 0; /* Remove default margin */  # taille de la bar
     display: flex;
   align-items: center; /* Align text vertically */
+  color: blue
 }
 
 .links {
