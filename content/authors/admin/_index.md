@@ -167,15 +167,6 @@ color: green
 }
 </style>
   
-  
-  
-  
-  
-  <div class="profile-section">
-  <div class="profile-details">
-  <h1>👋 Hi there, I'm Razan</h1>
-    </div>
-</div>
 
   <div class="bottom-section">
   <div class="bottom-details">
