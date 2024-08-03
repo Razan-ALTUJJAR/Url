@@ -87,10 +87,10 @@ sections:
     buttons:
     - name: All
       tag: '*'
-    - name: Séries tempoelles
-      tag: Séries tempoelles
     - name: Analyse et science des données
-      tag: Analyse et science des données
+      tag: 'Data Analyses'
+    - name: R Shiny
+      tag: 'R Shiny'
     default_button_index: 0
     filters:
       folders:

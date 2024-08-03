@@ -2,11 +2,13 @@
 date: "2023-08-09T00:00:00Z"
 external_link: ""
 image:
-  caption: Quelques résultats
+  caption: 
   focal_point: Smart
-
+tags :
+- '*'
 summary: Réalisé à l'université de Gustave Eiffel.
 title: Projet de fin d'étude
+subtitle : Analyse du vieillissement routières
 ---
 
 Le réseau routier est l'un des artères principales d'un pays. Elle assure le déplacement des personnes et des biens. Cependant, tout au long de la durée de vie d'une chaussée,les couches d’une chaussée routière sont soumises au vieillissement induit par l'exposition à l'oxygène de l'air, les chargements répétés du trafic routier, aux variations detempérature, et de l’humidité. Le liant bitumineux, qui relie les granulats, joue un rôle

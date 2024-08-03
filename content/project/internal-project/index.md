@@ -1,17 +1,14 @@
 ---
-title: "Etude de l'activité des entreprises pendant la période de covid"
-summary: Réalisé à l'université de Gustave Eiffel.
-
+title: "Etude de l'activité des secteurs pendant la période de covid"
 date: "2023-08-09T00:00:00Z"
-external_link: ""
 image:
-  caption: Quelques résultats
   focal_point: Smart
+  
 tags:
-- A
-
+- 'Data Analyses'
 ---
 
+<link href="{{< blogdown/postref >}}index_files/htmltools-fill/fill.css" rel="stylesheet" />
 <script src="{{< blogdown/postref >}}index_files/htmlwidgets/htmlwidgets.js"></script>
 <script src="{{< blogdown/postref >}}index_files/jquery/jquery-3.6.0.min.js"></script>
 <link href="{{< blogdown/postref >}}index_files/leaflet/leaflet.css" rel="stylesheet" />

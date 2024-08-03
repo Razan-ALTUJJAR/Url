@@ -1,17 +1,15 @@
 ---
-title: "Etude de l'activité des entreprises pendant la période de covid"
-
+title: "Etude de l'activité des secteurs pendant la période de covid"
 date: "2023-08-09T00:00:00Z"
-external_link: ""
 image:
-  caption: Quelques résultats
   focal_point: Smart
+  
 tags:
-- A
-
+- 'Data Analyses'
 ---
 
- 
+
+
 
 
 ```{r,include=FALSE}
