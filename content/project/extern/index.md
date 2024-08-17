@@ -1,5 +1,5 @@
 ---
-date: " "
+date: "17/08/2024 "
 image:
   caption: 
   focal_point: Smart
