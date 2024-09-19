@@ -1,6 +1,7 @@
 ---
 title: Surveillance des voies d'un tramway
-date: "2016-04-27T00:00:00Z"
+date: "2023-03-23T00:00:00Z" 
+
 image:
   caption: ""
   focal_point: Smart

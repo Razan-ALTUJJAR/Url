@@ -87,13 +87,15 @@ sections:
 - block: portfolio
   content:
     buttons:
-    - name: All
-      tag: '*'
+ 
     - name: Analyse et science des données
       tag: 'Data Analyses'
     
     - name: R Shiny
       tag: 'R Shiny'
+
+    - name: All
+      tag: '*'
     default_button_index: 0
     filters:
       folders:

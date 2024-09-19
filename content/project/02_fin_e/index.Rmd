@@ -1,0 +1,216 @@
+---
+title: Projet de fin d'étude
+output: html_document
+date: "2024-09-18"
+external_link: ""
+image:
+  caption: 
+  focal_point: Smart
+tags :
+- '*'
+summary: Réalisé à l'université de Gustave Eiffel.
+subtitle : Analyse du vieillissement routières
+---
+
+## Projet de Fin d'Études : Analyse du Vieillissement des Chaussées Routières Bitumineuses
+
+Le réseau routier est l'une des artères principales d'un pays, assurant le déplacement des personnes et des biens. Cependant, au cours de leur durée de vie, les couches des chaussées routières sont sujettes à un vieillissement accéléré en raison de l'exposition à l'air, des chargements répétés du trafic, ainsi que des variations de température et d'humidité. Le liant bitumineux, qui relie les granulats pour former les enrobés bitumineux, joue un rôle crucial dans la durabilité de ces couches.
+
+Il est donc essentiel de poursuivre les études sur le liant bitumineux et les enrobés pour mieux comprendre et gérer le phénomène de vieillissement. Mon stage de fin d'études a consisté en l'analyse des données issues des recherches sur ce vieillissement des chaussées bitumineuses. Les objectifs de ce travail étaient les suivants :
+
+1. **Vérifier la reproductibilité et la répétabilité des mesures** : Assurer que les valeurs mesurées par différentes équipes et logiciels sont cohérentes, afin de garantir la fiabilité des résultats.
+
+2. **Identifier les indicateurs évolutifs au cours du vieillissement** : Déterminer quels paramètres changent significativement avec le temps pour mieux comprendre le processus de vieillissement.
+
+3. **Comparer le vieillissement réel et simulé par clustering** : Utiliser des techniques de clustering pour analyser et comparer les données sur le vieillissement réel des chaussées avec celles obtenues par des tests artificiels.
+
+4. **Prédire les valeurs manquantes avec des modèles de prédiction** : Appliquer des modèles de prédiction pour estimer les valeurs manquantes et améliorer l'intégrité des ensembles de données.
+
+5. **Visualiser les résultats** : Créer des visualisations claires et informatives pour faciliter l'interprétation des données et des résultats.
+
+Ce projet m'a permis de développer des compétences en analyse de données, en modélisation statistique, et en visualisation, tout en contribuant à une meilleure compréhension des mécanismes de vieillissement des chaussées bitumineuses.
+
+
+```{r,include=FALSE}
+
+library(leaflet)
+library(dplyr) 
+library(ggplot2)
+library(tidyverse)
+library(treemap)
+library(rsconnect)
+library(shiny)
+
+```
+
+
+```{r,include=FALSE,echo=FALSE,warning=FALSE,fig.show='hide'}
+
+library(tidyverse)
+library(FactoMineR)
+library(factoextra)
+
+library(readxl)
+
+#-------- data_liant
+data_liant <- read_excel("C:/Users/razan/Bitum/data_liant.xlsx")
+rownames=t(data_liant[1]) 
+data_liant=data_liant[-1]
+#--- Convertire en num 
+
+for (i in (6:(length(colnames(data_liant))))){
+  data_liant[,i]=as.numeric(as.matrix(data_liant[,i]))
+  
+}
+rownames(data_liant)=rownames
+
+colnames(data_liant)
+
+#------------- ESTP1
+library(patchwork)
+
+ESTP1 <- read_excel("C:/Users/razan/Bitum/ESTP.xlsx")
+row_na=t(ESTP1[,1]) 
+ESTP1=ESTP1[,-1]
+#--- Convertire en num 
+for (i in (5:(length(colnames(ESTP1))-2))){
+  ESTP1[,i]=as.numeric(as.matrix(ESTP1[,i]))
+  
+}
+rownames(ESTP1)=c(row_na)
+
+
+Liant_classification =ESTP1[,c(5:6,10,13)]
+resAcp<-PCA(Liant_classification, scale.unit = T,ncp = 2) 
+axe2=2   
+par(mfrow=c(1,2))
+barplot(resAcp$eig[,2],las=2,cex.axis=0.6,cex.names=0.6, cex.lab=0.7,
+        col=alpha(c(2,2,1,1,1,1,1,1,1,1,1),0.8),
+        xlab="Dimension", ylab="% d'inertie")
+
+barplot(resAcp$eig[,3],las=2,cex.axis=0.6,cex.names=0.6, cex.lab=0.7,
+        col=alpha(c(2,2,1,1,1,1,1,1,1,1,1),0.8),
+        xlab="Dimension", ylab="% d'inertie cumulée")
+abline(h=80,lty=2) 
+text(x=1.5,y=90, "80 %", cex=0.5)
+#---------------
+rownames(resAcp$ind$coord)=rownames(ESTP1)
+rownames(Liant_classification)=rownames(ESTP1)
+#---------------
+data=ESTP1
+L=c(1:nrow(data))
+axe1=1
+axe2=2
+#--------------
+dev.off()
+g1 <- ggplot(data.frame(resAcp$ind$coord[L,c(axe1,2)]), aes(x=resAcp$ind$coord[L,c(axe1)],y=resAcp$ind$coord[L,c(axe2)],label = rownames(resAcp$ind$coord)[L],colour=data$type_de_vieillissement[L]
+))+  geom_point(size=1)+ geom_label(size = 3, hjust= 'top')+
+  
+  geom_hline(yintercept=0, size=0.5) + geom_vline(xintercept=0, size=0.5) + ylim(min(min(resAcp$ind$coord[,c(axe2)]),-max(resAcp$ind$coord[,c(axe2)])), max(max(resAcp$ind$coord[,c(axe2)]),abs(min(resAcp$ind$coord[,c(axe2)]))))+xlim(min(min(resAcp$ind$coord[,c(axe1)]),-max(resAcp$ind$coord[,c(axe1)])), max(max(resAcp$ind$coord[,c(axe1)],abs(min(resAcp$ind$coord[,c(axe1)])))))+ggtitle('PCA graph of variables') + labs(y=paste("Dim2",round(resAcp$eig[axe2,2],2),"%"), x = paste("Dim1",round(resAcp$eig[axe1,2],2),"%"),colour = " type_de_vieillissement") 
+```
+
+```{r,include=FALSE,fig.show='hide'}
+
+Liant_classification =ESTP1[which(is.na(ESTP1$type_de_vieillissement)==FALSE),c(5:6,13,10)]
+acp<-PCA(Liant_classification,ncp=2,graph=FALSE,scale.unit = TRUE)
+res.hcpc<-HCPC(acp, graph = FALSE)
+
+par(mfrow=c(1,2))
+fviz_dend(res.hcpc,
+          cex = 0.3,
+          show.clust.cent = TRUE, # Show cluster centers
+          rect = TRUE,
+          rect_fill = TRUE, # Add rectangle around groups
+          rect_border = "jco",           # Rectangle color
+          labels_track_height = 0.8
+)
+
+fviz_cluster(res.hcpc,
+             repel = TRUE,            # Avoid label overlapping
+             show.clust.cent = TRUE, # Show cluster centers
+             palette = "jco",         # Color palette see ?ggpubr::ggpar
+             ggtheme = theme_minimal(),
+             main = "Factor map"
+)
+
+#----------------------------
+A1=ESTP1[which(is.na(ESTP1$type_de_vieillissement)==FALSE),]
+A=aggregate(scale(Liant_classification),by=list(res.hcpc$data.clust[,5]), FUN = mean)
+table(res.hcpc$data.clust[,"clust"],A1$type_de_vieillissement)
+
+```
+
+```{r,include=FALSE,fig.show='hide'}
+
+data_liant <- read_excel("C:/Users/razan/Bitum/data_liant.xlsx")
+rownames=t(data_liant[1]) 
+data_liant=data_liant[-1]
+#--- Convertire en num 
+
+for (i in (6:(length(colnames(data_liant))))){
+  data_liant[,i]=as.numeric(as.matrix(data_liant[,i]))
+  
+}
+rownames(data_liant)=rownames
+
+colnames(data_liant)
+
+```
+
+
+```{r,include=FALSE,fig.show='hide'}
+
+plot_it=function(indic_va_target,type_de_v,data,choice){
+  if(choice==TRUE){
+    data$Age_fac=data$Age_fac_solvant
+  }
+  Test_solvant=c()
+  Test_type_veill=c()
+  M=h2(type_de_v,c(1,3,2,4,indic_va_target),data)
+  var_etu=M[,ncol(M)]
+  colnames(var_etu)
+  if(length(type_de_v)!=1){
+    M=M[,c(1,3,ncol(M))]
+    M=na.omit(M)  
+    var_etu=M[,ncol(M)]
+    g=ggplot(M,aes(x=(Age_fac),y= as.matrix(var_etu),color=type_de_vieillissement,ylab="Resin"))+geom_line(aes(group = type_de_vieillissement))+
+      geom_point(aes(color=type_de_vieillissement))+ylab(colnames(var_etu))
+    if((length(unique(na.omit(M)$type_de_vieillissement))!=1)&(length(unique(na.omit(M)$type_de_vieillissement))!=0)){
+      K=kruskal.test(data=M,as.matrix(var_etu)~type_de_vieillissement)
+      Test_type_veill=c(Test_type_veill,K$p.value)
+    }
+  }
+  print(Test_type_veill)
+  if( (unique(type_de_v)[1] !="vieillissement site") & (length(unique(type_de_v)) ==1)){
+    if(length(type_de_v)==1 ){
+      g=ggplot(na.omit(M),aes(x=(Age_fac),y=as.matrix(var_etu),color=ASolvant,ylab="Resin"))+geom_line(aes(group = type_de_vieillissement))+
+        geom_point(aes(color=ASolvant))+ylab(colnames(var_etu))
+    } 
+  }
+  if((length(unique(type_de_v))==1) & (unique(type_de_v)[1] == "vieillissement site")){
+    M=data[which(data$type_de_vieillissement=="vieillissement site"),c(1,2,3,4,5,indic_va_target)]
+    M=M[which(is.na(M[,ncol(M)])==FALSE),]
+    var_etu=M[,ncol(M)]
+    g=ggplot(M,aes(x=(Age_fac),y=as.matrix(var_etu),color=interaction(Zone,Couche),ylab="Resin"))+geom_line(aes(group = interaction(Zone,Couche)))+
+      geom_point(aes(color=interaction(Zone,Couche)))+ylab(colnames(var_etu))
+  } 
+  return(g)
+} 
+
+
+h2=function(type_v,index,data){ # c(Age_fac,33,30) # Pour construir colonne de vielesemnt + indiv + valeur mesuré
+  index_row=which(data$type_de_vieillissement %in% type_v)
+  
+  data_=data[index_row,index]
+  return(data_)
+}
+
+
+
+g1 <- ggplot(data.frame(resAcp$ind$coord[L,c(axe1,2)]), aes(x=resAcp$ind$coord[L,c(axe1)],y=resAcp$ind$coord[L,c(axe2)],label = rownames(resAcp$ind$coord)[L],colour=data$type_de_vieillissement[L]
+))+  geom_point(size=1)+ geom_label(size = 3, hjust= 'top')+geom_hline(yintercept=0, size=0.5) + geom_vline(xintercept=0, size=0.5) + ylim(min(min(resAcp$ind$coord[,c(axe2)]),-max(resAcp$ind$coord[,c(axe2)])), max(max(resAcp$ind$coord[,c(axe2)]),abs(min(resAcp$ind$coord[,c(axe2)]))))+xlim(min(min(resAcp$ind$coord[,c(axe1)]),-max(resAcp$ind$coord[,c(axe1)])), max(max(resAcp$ind$coord[,c(axe1)],abs(min(resAcp$ind$coord[,c(axe1)])))))+ggtitle('PCA graph of variables') + labs(y=paste("Dim2",round(resAcp$eig[axe2,2],2),"%"), x = paste("Dim1",round(resAcp$eig[axe1,2],2),"%"),colour = " type_de_vieillissement")
+
+```
+
+
+
