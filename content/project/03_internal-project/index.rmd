@@ -24,9 +24,8 @@ library(shiny)
 
 ```
 
-#####  Le covid avait influencé pleinement beaucoup de secteurs dans plusieurs villes.
-
-#####  Sur la cartographie suivante, on illustre pour la ville de Rennes les états principaux des différents secteurs.  
+<span style="color: #555555;">Le covid avait influencé pleinement beaucoup de secteurs dans plusieurs villes.</span>
+<span style="color: #555555;">Sur la cartographie suivante, on illustre pour la ville de Rennes les états principaux des différents secteurs.</span>
 
 ```{r,echo=FALSE,results='hold',warning=FALSE,message=FALSE}
 
@@ -76,15 +75,22 @@ leaflet(rennesovrt) %>%
   )
 
 
+
+
+
 ```
+
+\
+
+
 
 
 **Analyse :** La carte illustre les statuts des entreprises avec les couleurs suivantes :
 
-- **Navy :** jaune 
+- **Jaune :** Partiellement ouvert 
 - **Red :** Fermé
 - **Green :** Ouvert
-- **Navy :** Ouvert mais adapté
+- **Navy :** Ouverture  adaptée
 
 
 
