@@ -28,7 +28,8 @@ library(shiny)
 
 #####  Sur la cartographie suivante, on illustre pour la ville de Rennes les états principaux des différents secteurs.  
 
-```{r,echo=FALSE,warning=FALSE}
+```{r,echo=FALSE,results='hold',warning=FALSE,message=FALSE}
+
 
 
 library(leaflet)
@@ -45,10 +46,11 @@ rennes <- sirene[sirene$codepostal == 35000 | sirene$codepostal == 35200 | siren
 rennesovrt <- cmrcouvrt[cmrcouvrt$lat <= 48.1441 & cmrcouvrt$lat >= 48.0813 & cmrcouvrt$lon >= -1.7437 & cmrcouvrt$lon <= -1.6212,]
 
 # Vérifie les colonnes disponibles
-colnames(rennesovrt)
 
 # Création de la palette de couleurs pour les statuts
-pal <- colorFactor(c("navy", "red", "green", "yellow"), domain = c("partial", "closed", "open", "open_adapted"))
+pal <- colorFactor(c("red","green","navy"," yellow"), domain = c("closed", "open","open_adapted","partial"))
+
+rennesovrt=rennesovrt[rennesovrt$status != "unknown",]
 
 # Création de la carte
 leaflet(rennesovrt) %>% 
@@ -67,8 +69,8 @@ leaflet(rennesovrt) %>%
     )
   ) %>% 
   addLegend("bottomleft", 
-            colors = c("navy", "red", "green", "yellow", "grey"), 
-            labels = c("partiellement ouvert", "fermé", "ouvert", "ouvert (adapté)", "inconnu"),
+            colors = c("red","green","navy"," yellow"), 
+            labels = c("closed", "open","open_adapted","partial"),
             title = "État des Entreprises",
             opacity = 1
   )
@@ -78,10 +80,11 @@ leaflet(rennesovrt) %>%
 
 
 **Analyse :** La carte illustre les statuts des entreprises avec les couleurs suivantes :
-- **Navy :** Partiellement ouvert
+
+- **Navy :** jaune 
 - **Red :** Fermé
 - **Green :** Ouvert
-- **Yellow :** Ouvert mais adapté
+- **Navy :** Ouvert mais adapté
 
 
 
@@ -91,7 +94,7 @@ leaflet(rennesovrt) %>%
 
 library(dplyr)
 library(ggplot2)
-
+eatrennes=rennesovrt[rennesovrt$category =="eat",]
 # Filtrer les données pour exclure le statut "unknown"
 eatrennes_filtered <- eatrennes %>%
   filter(status != "unknown")
